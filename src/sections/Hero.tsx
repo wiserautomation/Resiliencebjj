@@ -37,24 +37,30 @@ export const Hero = () => {
                     <div className="flex items-center gap-4">
                         <div className="h-[2px] w-10 bg-neon" />
                         <span className="text-neon font-black tracking-[0.4em] uppercase text-xs">
-                            Resilience BJJ — România
+                            ÎNCEPE TRANSFORMAREA
                         </span>
                         <div className="h-[2px] w-10 bg-neon" />
                     </div>
 
+
                     {/* Main headline */}
                     <h1 className="text-7xl md:text-[9rem] font-black leading-[0.9] tracking-tighter italic uppercase">
-                        TRANSFORMĂ
+                        BULLYING
                         <br />
                         <span className="text-neon" style={{ textShadow: '0 0 60px rgba(255,255,0,0.4)' }}>
-                            HAOSUL
+                            BULLIES
                         </span>
                     </h1>
 
-                    <p className="max-w-lg text-lg md:text-xl text-white/60 font-semibold leading-relaxed mt-2">
-                        Nu doar o academie de lupte. O familie bazată pe respect,<br />
-                        disciplină și curaj — pe și în afara covorului.
+
+                    <p className="max-w-lg text-lg md:text-xl text-white/60 font-semibold leading-relaxed mt-2 italic uppercase tracking-widest">
+                        Bullying Bullies din 2020
                     </p>
+
+                    <p className="max-w-lg text-base md:text-lg text-white/40 font-medium leading-relaxed">
+                        Nu doar o academie de lupte. O familie bazată pe respect, disciplină și curaj — pe și în afara covorului.
+                    </p>
+
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row gap-5 mt-6">
