@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #000000;
+  --color-neon: #ccff00;
+  --color-secondary: #CCCCCC;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --accent: 60 100% 50%;
+    /* #FFFF00 */
+    --accent-glow: 60 100% 50% / 0.5;
+  }
+
+  body {
+    @apply bg-background text-white font-sans;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-black uppercase tracking-tighter;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply relative px-8 py-4 bg-black border-2 border-neon text-white font-bold uppercase transition-all duration-300;
+    box-shadow: 0 0 0 transparent;
+  }
+
+  .btn-primary:hover {
+    @apply bg-neon text-black;
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+  }
+
+  .nav-link {
+    @apply relative text-sm font-bold uppercase tracking-widest text-[#FFFFFF] transition-all;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-0 h-[2px] bg-neon transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-white/5 border border-white/10 p-6;
+  }
+
+  .neon-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+  }
+}
+
+/* Custom scroll animations classes */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Lando style scrolling effects */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neon;
+}
+
+::selection {
+  @apply bg-neon text-black;
+}
