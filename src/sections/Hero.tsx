@@ -1,112 +1,108 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
-import pantherImg from '../assets/panther-transform.jpg'
+import { motion } from 'framer-motion'
+import { ChevronDown, Trophy, Users, Shield } from 'lucide-react'
+import videoBg from '../assets/hero-video.mp4'
 
 export const Hero = () => {
-    const ref = useRef(null)
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ['start start', 'end start']
-    })
-
-    // Scrolling parallax effects like Lando Norris site
-    const yText = useTransform(scrollYProgress, [0, 1], [0, 400])
-    const opacityText = useTransform(scrollYProgress, [0, 0.4], [1, 0])
-
-    // Scale the panther for the "zooming into the character" feel
-    const pantherScale = useTransform(scrollYProgress, [0, 1], [1, 2.5])
-    const pantherY = useTransform(scrollYProgress, [0, 1], [0, 100])
-    const pantherOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.4])
-
-    // Reveal new text during transformation
-    const revealOpacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 1])
-    const revealY = useTransform(scrollYProgress, [0.4, 0.8], [50, 0])
-
     return (
-        <section ref={ref} className="relative h-[200vh] bg-black">
-            {/* Sticky Container for the Transition */}
-            <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-
-                {/* Back Layer: Panther Figure */}
-                <motion.div
-                    style={{
-                        scale: pantherScale,
-                        y: pantherY,
-                        opacity: pantherOpacity
-                    }}
-                    className="absolute inset-0 z-0 overflow-hidden"
+        <section id="home" className="relative h-screen min-h-[700px] w-full overflow-hidden flex items-center justify-center bg-black">
+            {/* Background Video with subtle overlay */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover opacity-60 filter brightness-90 grayscale-[0.2]"
                 >
-                    <img
-                        src={pantherImg}
-                        className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-1000"
-                        alt="Resilience Panther Transform"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
-                </motion.div>
+                    <source src={videoBg} type="video/mp4" />
+                </video>
+                {/* Advanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
+            </div>
 
-                {/* Hero Content Layer 1: Initial Hook */}
+            {/* Main Hero Content */}
+            <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
                 <motion.div
-                    style={{ y: yText, opacity: opacityText }}
-                    className="relative z-10 text-center px-6 max-w-5xl"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex flex-col items-center gap-8"
                 >
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-neon font-black tracking-[0.3em] uppercase mb-6 text-sm md:text-base neon-glow"
-                    >
-                        Resilience BJJ – Școala unde te construiești pe covor
-                    </motion.p>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-6xl md:text-9xl font-black leading-none mb-10 tracking-tighter italic uppercase"
-                    >
-                        TRANSFORMĂ <br />
-                        <span className="text-neon">HAOSUL</span>
-                    </motion.h1>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                        className="flex flex-col md:flex-row gap-6 justify-center items-center"
-                    >
-                        <a href="#contact" className="btn-primary scale-110">
-                            Începe Transformarea
-                        </a>
-                    </motion.div>
-                </motion.div>
-
-                {/* Hero Content Layer 2: Transformative Message (appears as you scroll) */}
-                <motion.div
-                    style={{ opacity: revealOpacity, y: revealY }}
-                    className="absolute z-20 text-center px-6 max-w-4xl"
-                >
-                    <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter leading-tight uppercase mb-6">
-                        DINCOLO DE LUPTĂ, <br />
-                        <span className="text-neon">EȘTI REZILIENȚĂ.</span>
-                    </h2>
-                    <p className="max-w-xl mx-auto text-secondary font-bold text-lg italic leading-relaxed">
-                        Nu este vorba doar despre tehnici. Este vorba despre cine devii când ești pus la încercare. Alătură-te celor care aleg să reziste.
-                    </p>
-                </motion.div>
-
-                {/* Hero Bottom indicators */}
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-                    <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
-                        <motion.div
-                            animate={{ y: ['-100%', '100%'] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                            className="absolute top-0 left-0 w-full h-1/2 bg-neon"
-                        />
+                    <div className="flex items-center gap-4">
+                        <div className="h-[2px] w-12 bg-neon animate-pulse" />
+                        <span className="text-neon font-black tracking-[0.4em] uppercase text-xs md:text-sm drop-shadow-[0_0_10px_rgba(15,255,80,0.5)]">
+                            Resilience BJJ Romania presents
+                        </span>
+                        <div className="h-[2px] w-12 bg-neon animate-pulse" />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">SCROLL SĂ DESCOPERI</span>
+
+                    <h1 className="text-6xl md:text-9xl font-black leading-none mb-4 tracking-tighter italic uppercase drop-shadow-2xl">
+                        TRANSFORMĂ <br />
+                        <span className="text-neon neon-text-glow">HAOSUL</span>
+                    </h1>
+
+                    <p className="max-w-xl text-lg md:text-xl text-secondary font-bold leading-relaxed mb-4 italic px-4">
+                        Nu doar o academie de lupte. O familie bazată pe respect, disciplină și curaj – unde fiecare sparring te face mai puternic.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-6 mt-6">
+                        <a href="#programe" className="btn-primary group border-neon/50 bg-neon/5 hover:bg-neon hover:text-black transition-all duration-500 shadow-[0_0_30px_rgba(15,255,80,0.15)] px-10 py-5 rounded-none font-black text-lg uppercase skew-x-[-12deg]">
+                            <span className="inline-block skew-x-[12deg]">Alege Programul</span>
+                        </a>
+                        <a href="#schedule" className="btn-secondary group bg-white/5 hover:bg-white hover:text-black transition-all duration-500 border-white/20 hover:border-white px-10 py-5 rounded-none font-black text-lg uppercase skew-x-[-12deg]">
+                            <span className="inline-block skew-x-[12deg]">Program Clădiri</span>
+                        </a>
+                    </div>
+                </motion.div>
+
+                {/* Performance Highlights Bar */}
+                <motion.div
+                    initial={{ opacity: 0, scaleY: 0 }}
+                    animate={{ opacity: 1, scaleY: 1 }}
+                    transition={{ duration: 1, delay: 0.8 }}
+                    className="absolute bottom-[-20%] md:bottom-[-25%] hidden lg:flex bg-black/80 backdrop-blur-3xl border border-white/10 p-8 gap-20 shadow-2xl rounded-lg"
+                >
+                    <div className="flex items-center gap-6">
+                        <div className="bg-neon/10 p-4 rounded-full border border-neon/20 group-hover:bg-neon transition-all">
+                            <Users className="text-neon" size={32} />
+                        </div>
+                        <div className="text-left">
+                            <p className="text-3xl font-black leading-none mb-1 text-neon">200+</p>
+                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">MEMBRI ACTIVI</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-6 border-l border-white/10 pl-20">
+                        <div className="bg-neon/10 p-4 rounded-full border border-neon/20 group-hover:bg-neon transition-all">
+                            <Trophy className="text-neon" size={32} />
+                        </div>
+                        <div className="text-left">
+                            <p className="text-3xl font-black leading-none mb-1 text-neon">50+</p>
+                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">MEDALII CÂȘTIGATE</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-6 border-l border-white/10 pl-20">
+                        <div className="bg-neon/10 p-4 rounded-full border border-neon/20 group-hover:bg-neon transition-all">
+                            <Shield className="text-neon" size={32} />
+                        </div>
+                        <div className="text-left">
+                            <p className="text-3xl font-black leading-none mb-1 text-neon">24/7</p>
+                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">SUPORT COMUNITATE</p>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Bottom Scroll Decorator */}
+                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 group">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 group-hover:text-neon transition-colors">START LUPTĂ</span>
+                    <motion.div
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    >
+                        <ChevronDown className="text-neon animate-bounce" size={24} />
+                    </motion.div>
                 </div>
             </div>
         </section>
     )
 }
-

@@ -1,200 +1,118 @@
-import { motion, Variants, useMotionValue, useSpring } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import teacherGi from '../assets/cristian-matascan.jpg'
-import teacherPanther from '../assets/hero-bg.jpg'
-
-const MotionH2 = motion.h2
-const MotionP = motion.p
+import pantherImg from '../assets/panther-transform.jpg'
 
 export const About = () => {
-    const containerRef = useRef(null)
+    const sectionRef = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ['start start', 'end end']
+    })
 
-    const variants: Variants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-    }
+    // Scrolling parallax and zoom - Nando Norris style
+    const scaleLayer1 = useTransform(scrollYProgress, [0, 1], [1, 2.5])
+    const opacityLayer1 = useTransform(scrollYProgress, [0, 0.4], [1, 0])
+
+    const scaleLayer2 = useTransform(scrollYProgress, [0, 1], [0.8, 1])
+    const opacityLayer2 = useTransform(scrollYProgress, [0.3, 0.6], [0, 1])
+    const yLayer2 = useTransform(scrollYProgress, [0, 1], [100, 0])
+
+    const textReveal = useTransform(scrollYProgress, [0.6, 1], [0, 1])
+    const textY = useTransform(scrollYProgress, [0.6, 1], [50, 0])
 
     return (
-        <section id="despre-noi" className="py-24 md:py-40 bg-black relative px-6 overflow-hidden">
-            <div className="container mx-auto grid md:grid-cols-2 gap-16 items-center">
-                {/* Story Content */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.3 }}
-                    variants={{
-                        hidden: {},
-                        visible: { transition: { staggerChildren: 0.2 } }
-                    }}
-                    className="flex flex-col gap-8 md:pr-12"
-                >
-                    <div className="flex items-center gap-4">
-                        <div className="h-[2px] w-12 bg-neon" />
-                        <span className="text-neon font-black tracking-[0.2em] uppercase text-xs">Povestea noastră</span>
-                    </div>
+        <section ref={sectionRef} className="relative h-[250vh] bg-black">
+            {/* Sticky Container for the Transition */}
+            <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-center justify-between overflow-hidden">
 
-                    <MotionH2
-                        variants={variants}
-                        className="text-5xl md:text-8xl font-black leading-tight tracking-tighter text-white"
+                {/* Visual Canvas (The Transformation Area) */}
+                <div className="absolute inset-0 md:relative md:w-3/5 h-screen overflow-hidden order-1 md:order-2">
+                    {/* Layer 1: Teacher in Gi (The starting point) */}
+                    <motion.div
+                        className="absolute inset-0 z-10"
+                        style={{ scale: scaleLayer1, opacity: opacityLayer1 }}
                     >
-                        REZILIENȚA <br />
-                        <span className="text-neon">PE ȘI ÎN AFARA</span> <br />
-                        COVORULUI.
-                    </MotionH2>
+                        <img
+                            src={teacherGi}
+                            className="w-full h-full object-cover grayscale"
+                            alt="Tradition - BJJ Gi"
+                        />
+                        <div className="absolute inset-0 bg-black/30" />
+                    </motion.div>
 
-                    <MotionP
-                        variants={variants}
-                        className="text-xl md:text-2xl text-secondary font-bold leading-relaxed"
+                    {/* Layer 2: Panther Warrior (The Transformation) */}
+                    <motion.div
+                        className="absolute inset-0 z-20"
+                        style={{ scale: scaleLayer2, opacity: opacityLayer2, y: yLayer2 }}
                     >
-                        Resilience BJJ s-a născut din dorința de a construi o comunitate bazată pe respect, disciplină și curaj. Nu suntem doar o academie de lupte. Suntem o familie unde fiecare pas de pe tatami te face mai puternic în viața de zi cu zi.
-                    </MotionP>
+                        <img
+                            src={pantherImg}
+                            className="w-full h-full object-cover"
+                            alt="Transformation - Panther Warrior"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-t from-neon/20 to-transparent mix-blend-color-dodge" />
+                    </motion.div>
+                </div>
 
-                    <MotionP
-                        variants={variants}
-                        className="text-base text-white/60 leading-relaxed max-w-lg"
+                {/* Content Area (Left side on Desktop, Absolute on Mobile) */}
+                <div className="relative z-30 w-full md:w-2/5 h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 bg-black/10 backdrop-blur-sm md:backdrop-blur-none order-2 md:order-1">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="flex flex-col gap-8 max-w-xl"
                     >
-                        Bullying Bullies din 2020, învățăm cum să transformăm vulnerabilitatea în forță. Jiu-Jitsu Brazilian este instrumentul nostru de auto-cunoaștere, auto-apărare și succes.
-                    </MotionP>
-
-                    <motion.div variants={variants} className="flex gap-12 mt-4">
-                        <div>
-                            <p className="text-4xl font-black text-neon mb-1">200+</p>
-                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">MEMBRI ACTIVI</p>
+                        <div className="flex items-center gap-4">
+                            <div className="h-[2px] w-12 bg-neon" />
+                            <span className="text-neon font-black tracking-widest uppercase text-xs">Transformare & Reziliență</span>
                         </div>
-                        <div>
-                            <p className="text-4xl font-black text-neon mb-1">10+</p>
-                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">INSTRUCȚORI</p>
-                        </div>
-                        <div>
-                            <p className="text-4xl font-black text-neon mb-1">5+</p>
-                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">LOCAȚII</p>
+
+                        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tighter text-white uppercase italic">
+                            REZILIENȚA <br />
+                            <span className="text-neon">PE ȘI ÎN AFARA</span> <br />
+                            COVORULUI.
+                        </h2>
+
+                        {/* Transitioning Content */}
+                        <div className="relative h-40">
+                            {/* Text for Stage 1 */}
+                            <motion.div
+                                style={{ opacity: opacityLayer1 }}
+                                className="absolute inset-0"
+                            >
+                                <p className="text-xl md:text-2xl text-secondary font-bold leading-relaxed">
+                                    Resilience BJJ s-a născut dintr-o dorință pură de educație prin disciplină și respect. Nu este doar sport, este o formă de artă.
+                                </p>
+                            </motion.div>
+
+                            {/* Text for Stage 2 (Panther Stage) */}
+                            <motion.div
+                                style={{ opacity: textReveal, y: textY }}
+                                className="absolute inset-0"
+                            >
+                                <p className="text-xl md:text-2xl text-neon font-black leading-relaxed italic drop-shadow-[0_0_10px_rgba(15,255,80,0.3)]">
+                                    Transformarea începe unde se termină confortul. Dincolo de tehnică, construim spiritul unui războinic modern.
+                                </p>
+                                <p className="mt-4 text-white/60 text-sm">
+                                    Bullying Bullies din 2020 – te învățăm să transformi frica în putere.
+                                </p>
+                            </motion.div>
                         </div>
                     </motion.div>
-                </motion.div>
+                </div>
 
-                {/* Decorative Visuals (Lando-style Interactive Reveal) */}
-                <div className="relative h-[600px] w-full mt-12 md:mt-0 flex items-center justify-center">
-                    <InteractionTeacher />
+                {/* Vertical Scroll Indicator */}
+                <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 z-40 hidden md:flex">
+                    <div className="h-40 w-[2px] bg-white/10 relative overflow-hidden">
+                        <motion.div
+                            style={{ height: useTransform(scrollYProgress, [0, 1], ['0%', '100%']) }}
+                            className="bg-neon w-full origin-top"
+                        />
+                    </div>
                 </div>
             </div>
         </section>
-    )
-}
-
-const InteractionTeacher = () => {
-    const mouseX = useMotionValue(0)
-    const mouseY = useMotionValue(0)
-
-    // Smooth springs for "fragments" effect
-    const springX = useSpring(mouseX, { stiffness: 100, damping: 25 })
-    const springY = useSpring(mouseY, { stiffness: 100, damping: 25 })
-
-    // Additional fragments for that "brush" feel with varying lag
-    const springX2 = useSpring(mouseX, { stiffness: 120, damping: 30 })
-    const springY2 = useSpring(mouseY, { stiffness: 120, damping: 30 })
-    const springX3 = useSpring(mouseX, { stiffness: 80, damping: 20 })
-    const springY3 = useSpring(mouseY, { stiffness: 80, damping: 20 })
-    const springX4 = useSpring(mouseX, { stiffness: 160, damping: 45 })
-    const springY4 = useSpring(mouseY, { stiffness: 160, damping: 45 })
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        const rect = e.currentTarget.getBoundingClientRect()
-        mouseX.set(e.clientX - rect.left)
-        mouseY.set(e.clientY - rect.top)
-    }
-
-    return (
-        <div
-            className="relative w-full h-[600px] group cursor-none overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
-            onMouseMove={handleMouseMove}
-        >
-            {/* Base Layer: Teacher in Gi */}
-            <div className="absolute inset-0 z-10 overflow-hidden bg-black">
-                <img
-                    src={teacherGi}
-                    alt="Teacher in Gi"
-                    className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105"
-                />
-            </div>
-
-            {/* Reveal Layer: Teacher with Panther (Golden Reveal) */}
-            <motion.div
-                className="absolute inset-0 z-20 overflow-hidden pointer-events-none"
-                style={{
-                    clipPath: `circle(140px at ${springX}px ${springY}px)`
-                }}
-            >
-                <img
-                    src={teacherPanther}
-                    alt="Panther Warrior"
-                    className="w-full h-full object-cover transition-transform duration-700"
-                />
-            </motion.div>
-
-            {/* Cinematic Fragment 2 (High Energy / Fast) */}
-            <motion.div
-                className="absolute inset-0 z-21 overflow-hidden pointer-events-none opacity-70 mix-blend-color-dodge"
-                style={{
-                    clipPath: `circle(80px at ${springX4}px ${springY4}px)`
-                }}
-            >
-                <img
-                    src={teacherPanther}
-                    alt="Fragment"
-                    className="w-full h-full object-cover"
-                />
-            </motion.div>
-
-            {/* Low-Frequency Ghost Fragment 3 */}
-            <motion.div
-                className="absolute inset-0 z-19 overflow-hidden pointer-events-none opacity-30 mix-blend-difference"
-                style={{
-                    clipPath: `circle(110px at ${springX3}px ${springY3}px)`
-                }}
-            >
-                <div className="w-full h-full bg-neon/20 backdrop-blur-3xl" />
-            </motion.div>
-
-            {/* Trail Fragment 4 (Trailing slower/smaller) */}
-            <motion.div
-                className="absolute inset-0 z-20 overflow-hidden pointer-events-none opacity-50 mix-blend-screen"
-                style={{
-                    clipPath: `circle(50px at ${springX2}px ${springY2}px)`
-                }}
-            >
-                <img
-                    src={teacherPanther}
-                    alt="Fragment"
-                    className="w-full h-full object-cover"
-                />
-            </motion.div>
-
-            {/* Interactive Ring Cursor with Glow */}
-            <motion.div
-                className="absolute z-50 pointer-events-none hidden group-hover:flex items-center justify-center translate-x-[-50%] translate-y-[-50%]"
-                style={{
-                    x: springX,
-                    y: springY,
-                }}
-            >
-                <div className="w-28 h-28 border border-neon/50 rounded-full animate-ping absolute opacity-20" />
-                <div className="w-6 h-6 bg-neon rounded-full blur-[2px] shadow-[0_0_20px_rgba(15,255,80,0.8)]" />
-            </motion.div>
-
-            {/* Quote Card Layered (Floating) */}
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, delay: 0.5 }}
-                className="absolute bottom-10 -left-10 w-[70%] h-[25%] z-30 pointer-events-none"
-            >
-                <div className="w-full h-full bg-black/60 backdrop-blur-2xl border-l-[6px] border-neon flex items-center justify-center p-8 rounded-r-lg shadow-2xl">
-                    <p className="text-2xl font-black leading-none text-neon italic uppercase tracking-tighter">
-                        “NU TE OPRI CÂND EȘTI OBOSIT, OPREȘTE-TE CÂND AI TERMINAT.”
-                    </p>
-                </div>
-            </motion.div>
-        </div>
     )
 }

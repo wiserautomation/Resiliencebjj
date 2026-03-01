@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Shield, Users, Target, Zap } from 'lucide-react'
 import adultImg from '../assets/adults-group.jpg'
 import kidsImg from '../assets/kids-group.jpg'
-import competitionImg from '../assets/hero-bg.jpg'
+import competitionImg from '../assets/cristian-matascan.jpg'
 
 const programs = [
     {
