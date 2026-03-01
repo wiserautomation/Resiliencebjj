@@ -117,70 +117,69 @@ const InteractionTeacher = () => {
                 />
             </div>
 
-            {/* Main Reveal Layer: Teacher with Panther */}
+            {/* Reveal Layer: Teacher with Panther (Golden Reveal) */}
             <motion.div
                 className="absolute inset-0 z-20 overflow-hidden pointer-events-none"
                 style={{
-                    clipPath: `circle(120px at ${springX}px ${springY}px)`
+                    clipPath: `circle(140px at ${springX}px ${springY}px)`
                 }}
             >
                 <img
                     src={teacherPanther}
                     alt="Panther Warrior"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-            </motion.div>
-
-            {/* Fragment Layer 2 (Faster/Slightly different size) */}
-            <motion.div
-                className="absolute inset-0 z-20 overflow-hidden pointer-events-none opacity-60"
-                style={{
-                    clipPath: `circle(90px at ${springX4}px ${springY4}px)`
-                }}
-            >
-                <img
-                    src={teacherPanther}
-                    alt="Panther Warrior Fragment"
                     className="w-full h-full object-cover transition-transform duration-700"
                 />
             </motion.div>
 
-            {/* Fragment Layer 3 (Trailing slower/smaller) */}
+            {/* Cinematic Fragment 2 (High Energy / Fast) */}
             <motion.div
-                className="absolute inset-0 z-20 overflow-hidden pointer-events-none opacity-40 mix-blend-screen"
+                className="absolute inset-0 z-21 overflow-hidden pointer-events-none opacity-70 mix-blend-color-dodge"
                 style={{
-                    clipPath: `circle(60px at ${springX2}px ${springY2}px)`
+                    clipPath: `circle(80px at ${springX4}px ${springY4}px)`
                 }}
             >
                 <img
                     src={teacherPanther}
-                    alt="Panther Warrior Fragment"
-                    className="w-full h-full object-cover transition-transform duration-700"
+                    alt="Fragment"
+                    className="w-full h-full object-cover"
                 />
             </motion.div>
 
-            {/* Fragment Layer 4 (Very lagged/Large ghost) */}
+            {/* Low-Frequency Ghost Fragment 3 */}
             <motion.div
-                className="absolute inset-0 z-20 overflow-hidden pointer-events-none opacity-20 mix-blend-overlay"
+                className="absolute inset-0 z-19 overflow-hidden pointer-events-none opacity-30 mix-blend-difference"
                 style={{
-                    clipPath: `circle(140px at ${springX3}px ${springY3}px)`
+                    clipPath: `circle(110px at ${springX3}px ${springY3}px)`
+                }}
+            >
+                <div className="w-full h-full bg-neon/20 backdrop-blur-3xl" />
+            </motion.div>
+
+            {/* Trail Fragment 4 (Trailing slower/smaller) */}
+            <motion.div
+                className="absolute inset-0 z-20 overflow-hidden pointer-events-none opacity-50 mix-blend-screen"
+                style={{
+                    clipPath: `circle(50px at ${springX2}px ${springY2}px)`
                 }}
             >
                 <img
                     src={teacherPanther}
-                    alt="Panther Warrior Fragment"
-                    className="w-full h-full object-cover transition-transform duration-700"
+                    alt="Fragment"
+                    className="w-full h-full object-cover"
                 />
             </motion.div>
 
-            {/* Custom Interactive Ring */}
+            {/* Interactive Ring Cursor with Glow */}
             <motion.div
-                className="absolute z-50 w-24 h-24 border-2 border-neon rounded-full pointer-events-none mix-blend-difference hidden group-hover:block translate-x-[-50%] translate-y-[-50%]"
+                className="absolute z-50 pointer-events-none hidden group-hover:flex items-center justify-center translate-x-[-50%] translate-y-[-50%]"
                 style={{
                     x: springX,
-                    y: springY
+                    y: springY,
                 }}
-            />
+            >
+                <div className="w-28 h-28 border border-neon/50 rounded-full animate-ping absolute opacity-20" />
+                <div className="w-6 h-6 bg-neon rounded-full blur-[2px] shadow-[0_0_20px_rgba(15,255,80,0.8)]" />
+            </motion.div>
 
             {/* Quote Card Layered (Floating) */}
             <motion.div
