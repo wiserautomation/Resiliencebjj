@@ -1,13 +1,16 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 
+import adultsGroup from '../assets/adults-group.jpg'
+import kidsGroup from '../assets/kids-group.jpg'
+import heroBg from '../assets/hero-bg.jpg'
+import cristianImg from '../assets/cristian-matascan.jpg'
+
 const images = [
-    'https://images.unsplash.com/photo-1549476464-37392f717551?auto=format&fit=crop&q=80&w=1200',
-    'https://images.unsplash.com/photo-1563810332292-6f298810753f?auto=format&fit=crop&q=80&w=1200',
-    'https://images.unsplash.com/photo-1555597408-26bc8e548a46?auto=format&fit=crop&q=80&w=1200',
-    'https://images.unsplash.com/photo-1520110120385-dd27c30ce62c?auto=format&fit=crop&q=80&w=1200',
-    'https://images.unsplash.com/photo-1553341640-6b306b9ea209?auto=format&fit=crop&q=80&w=1200',
-    'https://images.unsplash.com/photo-1518611012118-296072bb5604?auto=format&fit=crop&q=80&w=1200',
+    adultsGroup,
+    kidsGroup,
+    heroBg,
+    cristianImg,
 ]
 
 export const Gallery = () => {

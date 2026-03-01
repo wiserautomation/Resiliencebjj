@@ -2,8 +2,16 @@ import { motion } from 'framer-motion'
 import { Award, Target, Trophy, Clock } from 'lucide-react'
 import cristianImg from '../assets/cristian-matascan.jpg'
 import raduImg from '../assets/radu-instructor.jpg'
+import emilImg from '../assets/emil-instructor.jpg'
 
 const instructors = [
+    {
+        name: 'Cristian Matascan',
+        belt: 'Centura Neagră 2 Degree',
+        experience: '20+ ani de experiență',
+        bullets: ['Expert în Gi BJJ', 'Antrenor personalizat pentru performanță', 'Fondator Resilience BJJ'],
+        image: cristianImg
+    },
     {
         name: 'RADU',
         belt: 'Centura Neagră 2 Degree',
@@ -15,15 +23,8 @@ const instructors = [
         name: 'Emil "The Pirate"',
         belt: 'Centura Maro',
         experience: '8+ ani de experiență',
-        bullets: ['Specialist în BJJ Copii', 'Medaliată la Open-urile din România', 'Pasionată de biomecanica mișcării'],
-        image: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-        name: 'Cristian Matascan',
-        belt: 'Centura Neagră 2 Degree',
-        experience: '20+ ani de experiență',
-        bullets: ['Expert în Gi BJJ', 'Antrenor personalizat pentru performanță', 'Fondator Resilience BJJ'],
-        image: cristianImg
+        bullets: ['Specialist în BJJ Copii', 'Medaliat la numeroase concursuri', 'Pasionat de biomecanica mișcării și control'],
+        image: emilImg
     }
 ]
 
