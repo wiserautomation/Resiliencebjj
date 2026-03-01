@@ -1,106 +1,107 @@
 import { motion } from 'framer-motion'
-import { ChevronDown, Trophy, Users, Shield } from 'lucide-react'
-import videoBg from '../assets/hero-video.mp4'
+import { useRef } from 'react'
+import heroVideo from '../assets/hero-video.mp4'
 
 export const Hero = () => {
+    const ref = useRef<HTMLElement>(null)
+
     return (
-        <section id="home" className="relative h-screen min-h-[700px] w-full overflow-hidden flex items-center justify-center bg-black">
-            {/* Background Video with subtle overlay */}
+        <section ref={ref} id="home" className="relative h-screen min-h-[700px] w-full overflow-hidden flex items-center justify-center bg-black">
+
+            {/* ── Background Video ── */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
                 <video
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover opacity-60 filter brightness-90 grayscale-[0.2]"
+                    className="w-full h-full object-cover"
+                    style={{ opacity: 0.65 }}
                 >
-                    <source src={videoBg} type="video/mp4" />
+                    <source src={heroVideo} type="video/mp4" />
                 </video>
-                {/* Advanced Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
+                {/* Vignette overlays */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
             </div>
 
-            {/* Main Hero Content */}
-            <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+            {/* ── Hero Text Content ── */}
+            <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex flex-col items-center gap-8"
+                    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex flex-col items-center gap-6"
                 >
+                    {/* Eyebrow */}
                     <div className="flex items-center gap-4">
-                        <div className="h-[2px] w-12 bg-neon animate-pulse" />
-                        <span className="text-neon font-black tracking-[0.4em] uppercase text-xs md:text-sm drop-shadow-[0_0_10px_rgba(15,255,80,0.5)]">
-                            Resilience BJJ Romania presents
+                        <div className="h-[2px] w-10 bg-neon" />
+                        <span className="text-neon font-black tracking-[0.4em] uppercase text-xs">
+                            Resilience BJJ — România
                         </span>
-                        <div className="h-[2px] w-12 bg-neon animate-pulse" />
+                        <div className="h-[2px] w-10 bg-neon" />
                     </div>
 
-                    <h1 className="text-6xl md:text-9xl font-black leading-none mb-4 tracking-tighter italic uppercase drop-shadow-2xl">
-                        TRANSFORMĂ <br />
-                        <span className="text-neon neon-text-glow">HAOSUL</span>
+                    {/* Main headline */}
+                    <h1 className="text-7xl md:text-[9rem] font-black leading-[0.9] tracking-tighter italic uppercase">
+                        TRANSFORMĂ
+                        <br />
+                        <span className="text-neon" style={{ textShadow: '0 0 60px rgba(255,255,0,0.4)' }}>
+                            HAOSUL
+                        </span>
                     </h1>
 
-                    <p className="max-w-xl text-lg md:text-xl text-secondary font-bold leading-relaxed mb-4 italic px-4">
-                        Nu doar o academie de lupte. O familie bazată pe respect, disciplină și curaj – unde fiecare sparring te face mai puternic.
+                    <p className="max-w-lg text-lg md:text-xl text-white/60 font-semibold leading-relaxed mt-2">
+                        Nu doar o academie de lupte. O familie bazată pe respect,<br />
+                        disciplină și curaj — pe și în afara covorului.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-6 mt-6">
-                        <a href="#programe" className="btn-primary group border-neon/50 bg-neon/5 hover:bg-neon hover:text-black transition-all duration-500 shadow-[0_0_30px_rgba(15,255,80,0.15)] px-10 py-5 rounded-none font-black text-lg uppercase skew-x-[-12deg]">
-                            <span className="inline-block skew-x-[12deg]">Alege Programul</span>
+                    {/* CTA Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-5 mt-6">
+                        <a
+                            href="#contact"
+                            className="px-10 py-4 bg-neon text-black font-black text-sm uppercase tracking-widest hover:bg-white transition-colors duration-300"
+                            style={{ clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)' }}
+                        >
+                            Începe Gratuit
                         </a>
-                        <a href="#schedule" className="btn-secondary group bg-white/5 hover:bg-white hover:text-black transition-all duration-500 border-white/20 hover:border-white px-10 py-5 rounded-none font-black text-lg uppercase skew-x-[-12deg]">
-                            <span className="inline-block skew-x-[12deg]">Program Clădiri</span>
+                        <a
+                            href="#programe"
+                            className="px-10 py-4 border border-white/30 text-white font-black text-sm uppercase tracking-widest hover:border-neon hover:text-neon transition-colors duration-300"
+                            style={{ clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)' }}
+                        >
+                            Vezi Programele
                         </a>
                     </div>
                 </motion.div>
 
-                {/* Performance Highlights Bar */}
+                {/* Stats bar */}
                 <motion.div
-                    initial={{ opacity: 0, scaleY: 0 }}
-                    animate={{ opacity: 1, scaleY: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.8 }}
-                    className="absolute bottom-[-20%] md:bottom-[-25%] hidden lg:flex bg-black/80 backdrop-blur-3xl border border-white/10 p-8 gap-20 shadow-2xl rounded-lg"
+                    className="absolute bottom-20 left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-12 border border-white/10 bg-black/60 backdrop-blur-xl px-12 py-5"
                 >
-                    <div className="flex items-center gap-6">
-                        <div className="bg-neon/10 p-4 rounded-full border border-neon/20 group-hover:bg-neon transition-all">
-                            <Users className="text-neon" size={32} />
+                    {[
+                        { value: '200+', label: 'Membri Activi' },
+                        { value: '50+', label: 'Medalii' },
+                        { value: '5+', label: 'Locații' },
+                        { value: '5+', label: 'Ani de Activitate' },
+                    ].map((s, i) => (
+                        <div key={i} className={`text-center ${i > 0 ? 'border-l border-white/10 pl-12' : ''}`}>
+                            <p className="text-2xl font-black text-neon">{s.value}</p>
+                            <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold">{s.label}</p>
                         </div>
-                        <div className="text-left">
-                            <p className="text-3xl font-black leading-none mb-1 text-neon">200+</p>
-                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">MEMBRI ACTIVI</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-6 border-l border-white/10 pl-20">
-                        <div className="bg-neon/10 p-4 rounded-full border border-neon/20 group-hover:bg-neon transition-all">
-                            <Trophy className="text-neon" size={32} />
-                        </div>
-                        <div className="text-left">
-                            <p className="text-3xl font-black leading-none mb-1 text-neon">50+</p>
-                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">MEDALII CÂȘTIGATE</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-6 border-l border-white/10 pl-20">
-                        <div className="bg-neon/10 p-4 rounded-full border border-neon/20 group-hover:bg-neon transition-all">
-                            <Shield className="text-neon" size={32} />
-                        </div>
-                        <div className="text-left">
-                            <p className="text-3xl font-black leading-none mb-1 text-neon">24/7</p>
-                            <p className="text-[10px] text-white/40 uppercase font-black tracking-widest">SUPORT COMUNITATE</p>
-                        </div>
-                    </div>
+                    ))}
                 </motion.div>
 
-                {/* Bottom Scroll Decorator */}
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 group">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 group-hover:text-neon transition-colors">START LUPTĂ</span>
+                {/* Scroll hint */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
                     <motion.div
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                    >
-                        <ChevronDown className="text-neon animate-bounce" size={24} />
-                    </motion.div>
+                        animate={{ y: [0, 8, 0] }}
+                        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                        className="w-[1px] h-10 bg-gradient-to-b from-neon to-transparent"
+                    />
                 </div>
             </div>
         </section>
